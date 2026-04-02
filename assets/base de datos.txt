@@ -1,0 +1,58 @@
+create database alivio;
+use alivio;
+
+create table usuarios(
+id int auto_increment primary key,
+nombre varchar(100) not null,
+correo varchar(100)not null unique,
+password varchar(100) not null,
+rol enum('administrador', 'usuario', 'Contador') not null,
+fecha_registro timestamp default current_timestamp
+);
+
+
+create table solicitudes(
+id int auto_increment primary key,
+usuario_nombre varchar(100) not null,
+fecha date not null,
+concepto varchar(250) not null,
+monto decimal (10, 2) not null,
+proveedor varchar(100) not null,
+metodo_pago varchar(50) not null,
+prioridad varchar(20) not null,
+observaciones text,
+fecha_registro timestamp default current_timestamp,
+estado ENUM('En proceso', 'Aprobada', 'Rechazada') DEFAULT 'En proceso');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+session_start();
+
+// Validar si tiene sesión activa y el rol correcto
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'contador') {
+    header("Location: index.html"); // Si no es contador, lo expulsa al login
+    exit();
+}
+
+echo "<h1>Bienvenido, Contador</h1>";
+echo "<p>Aquí puedes ver los estados financieros.</p>";
+?>

@@ -1,0 +1,135 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Layout */
+.layout{
+    display:flex;
+    height:100vh;
+    background:#f0f2f5;
+}
+
+/* Sidebar */
+.sidebar{
+    width:220px;
+    background: linear-gradient(to bottom, #2fd0c7, #1e3c72);
+    color:white;
+    padding:20px;
+}
+
+.sidebar h3{
+    margin-bottom:30px;
+    text-align:center;
+}
+
+.sidebar a{
+    display:block;
+    padding:12px;
+    margin-bottom:10px;
+    border-radius:5px;
+    text-decoration:none;
+    color:white;
+    cursor:pointer;
+}
+
+.sidebar a.active{
+    background:#3f6ad8;
+}
+
+.sidebar a:hover{
+    background:rgba(255,255,255,0.2);
+}
+
+/* Main */
+.main{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+}
+
+/* Header */
+.header{
+    background:#fff;
+    padding:15px 25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #ddd;
+}
+
+/* Usuario dropdown */
+.user-menu{
+    position:relative;
+}
+
+.user-btn{
+    width:35px;
+    height:35px;
+    background:#ddd;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+}
+
+/* Dropdown oculto */
+.dropdown{
+    position:absolute;
+    right:0;
+    top:45px;
+    background:#fff;
+    width:180px;
+    border-radius:8px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    display:none;
+    padding:10px;
+}
+
+/* Mostrar dropdown */
+.dropdown.show{
+    display:block;
+}
+
+/* Contenido dropdown */
+.dropdown p{
+    margin-bottom:10px;
+    font-weight:bold;
+}
+
+.dropdown a{
+    display:block;
+    text-decoration:none;
+    color:#e74c3c;
+}
+
+/* Content */
+.content{
+    padding:30px;
+}
+
+/* Card */
+.card, .welcome-card{
+    background:#fff;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    margin-bottom:20px;
+    width:100%;
+    max-width:900px;
+}
+
+
+/* Lista */
+.list li{
+    margin-bottom:8px;
+}
+
+/* Texto */
+.nombre-usuario{
+    color:#2d6cdf;
+    font-weight:bold;
+}

@@ -1,0 +1,147 @@
+/* Reset y Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f4f8; /* Color de fondo */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Nombre de usuario invisible (mismo color que el fondo) */
+.nombre-usuario {
+    color: #f0f4f8; 
+    user-select: none; /* Evita que se resalte fácilmente al pasar el mouse */
+    font-size: 12px;
+}
+
+h2.titulo-formulario {
+    color: #1a237e;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 700;
+}
+
+/* Contenedor del Formulario */
+form {
+    background-color: #ffffff;
+    padding: 25px 35px; /* Espaciado interno moderado */
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 680px;
+    border-top: 5px solid #6a1b9a;
+    display: flex;
+    flex-direction: column;
+    gap: 18px; /* Espacio reducido entre componentes */
+}
+
+/* Filas del Formulario */
+.form-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Inputs de texto abarcando el cuadro */
+input[type="text"],
+input[type="date"],
+input[type="number"],
+textarea {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #d1d9e6;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #2196f3;
+    box-shadow: 0 0 5px rgba(33, 150, 243, 0.2);
+}
+
+/* Fila Doble (Monto y Proveedor) */
+.form-row-double {
+    display: flex;
+    gap: 20px;
+}
+
+.inline-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+/* Etiquetas */
+label {
+    color: #4a148c;
+    font-weight: 600;
+    font-size: 14px;
+    min-width: fit-content;
+}
+
+/* Grupos de Radios */
+.radio-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.radio-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.radio-item label {
+    font-weight: 400;
+    color: #555;
+    cursor: pointer;
+}
+
+/* Botón Centrado */
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+button {
+    background-color: #2196f3;
+    color: white;
+    padding: 12px 45px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #1976d2;
+}
+
+/* Enlace de Cerrar Sesión */
+.logout-link {
+    margin-top: 20px;
+    color: #6a1b9a;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.logout-link:hover {
+    text-decoration: underline;
+}
