@@ -17,7 +17,7 @@
     <section class="form-container">
         <h2 class="titulo-formulario">Nueva Solicitud de Pago</h2>
         
-        <form action="../php/proceso.php" method="post">
+        <form action="../php/procesoadmin.php" method="post">
             
             <div class="form-group">
                 <label for="fecha">Fecha:</label>
@@ -87,7 +87,7 @@
             </div>
         </form>
         
-        <a href="../vistas/solicitudes.php" class="logout-link">Regresar al Panel</a>
+        <a href="../vistas/adminsoli.php" class="logout-link">Regresar al Panel</a>
     </section>
 
 </body>

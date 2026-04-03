@@ -53,12 +53,13 @@ if($estado_filtro !== ''){
 
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h2>USUARIO</h2>
+            <h2>ADMINISTRADOR</h2>
             <div class="close-menu" onclick="toggleMenu()">×</div>
         </div>
         <nav>
-            <a class="<?php echo ($estado_filtro == '') ?  : ''; ?>" href="solicitudes.php">SOLICITUDES</a>
-            <a href="../formularios/solicitud.php">NUEVA SOLICITUD</a>
+            <a class="<?php echo ($estado_filtro == '') ?  : ''; ?>" href="../vistas/admin.php">GESTOR DE USUARIOS</a>
+            <a href="solicitudes.php">SOLICITUDES</a>
+            <a href="../formularios/solicitudadmin.php">NUEVA SOLICITUD</a>
             <a href="#">COMPROBANTES</a>
             <a href="/proyecto/logout.php" class="logout-mobile">CERRAR SESIÓN</a>
         </nav>

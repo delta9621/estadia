@@ -7,25 +7,24 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f4f8; /* Color de fondo */
+    background-color: #f0f4f8;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     min-height: 100vh;
     padding: 20px;
 }
 
-/* Nombre de usuario invisible (mismo color que el fondo) */
+/* Identificador discreto */
 .nombre-usuario {
     color: #f0f4f8; 
-    user-select: none; /* Evita que se resalte fácilmente al pasar el mouse */
+    user-select: none;
     font-size: 12px;
 }
 
-h2.titulo-formulario {
+.titulo-formulario {
     color: #1a237e;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     text-align: center;
     font-weight: 700;
 }
@@ -33,36 +32,47 @@ h2.titulo-formulario {
 /* Contenedor del Formulario */
 form {
     background-color: #ffffff;
-    padding: 25px 35px; /* Espaciado interno moderado */
+    padding: 30px;
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     width: 100%;
-    max-width: 680px;
+    max-width: 700px;
     border-top: 5px solid #6a1b9a;
     display: flex;
     flex-direction: column;
-    gap: 18px; /* Espacio reducido entre componentes */
+    gap: 20px;
 }
 
-/* Filas del Formulario */
+/* Estructura de Filas */
 .form-group {
     display: flex;
-    align-items: center;
-    gap: 15px;
+    flex-direction: column; /* Etiqueta arriba en móvil por defecto */
+    gap: 8px;
 }
 
-/* Inputs de texto abarcando el cuadro */
+.form-row-double {
+    display: flex;
+    gap: 20px;
+}
+
+.inline-input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+/* Inputs */
 input[type="text"],
 input[type="date"],
 input[type="number"],
 textarea {
-    flex: 1;
-    padding: 10px;
+    width: 100%;
+    padding: 12px;
     border: 1px solid #d1d9e6;
     border-radius: 6px;
-    font-size: 14px;
-    font-family: inherit;
-    transition: border-color 0.3s ease;
+    font-size: 15px;
+    transition: 0.3s;
 }
 
 input:focus, textarea:focus {
@@ -71,38 +81,33 @@ input:focus, textarea:focus {
     box-shadow: 0 0 5px rgba(33, 150, 243, 0.2);
 }
 
-/* Fila Doble (Monto y Proveedor) */
-.form-row-double {
-    display: flex;
-    gap: 20px;
-}
-
-.inline-input {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex: 1;
-}
-
-/* Etiquetas */
 label {
     color: #4a148c;
     font-weight: 600;
     font-size: 14px;
-    min-width: fit-content;
 }
 
-/* Grupos de Radios */
-.radio-group {
+/* Radios */
+.form-group-radio {
     display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.radio-options {
+    display: flex;
+    flex-wrap: wrap;
     gap: 15px;
-    align-items: center;
 }
 
 .radio-item {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
+    background: #f8f9fa;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
 .radio-item label {
@@ -111,7 +116,7 @@ label {
     cursor: pointer;
 }
 
-/* Botón Centrado */
+/* Botón */
 .button-container {
     display: flex;
     justify-content: center;
@@ -121,27 +126,46 @@ label {
 button {
     background-color: #2196f3;
     color: white;
-    padding: 12px 45px;
+    padding: 14px 50px;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: 0.3s;
+    width: 100%; /* Ancho completo en móvil */
 }
 
 button:hover {
     background-color: #1976d2;
+    transform: translateY(-2px);
 }
 
-/* Enlace de Cerrar Sesión */
 .logout-link {
     margin-top: 20px;
     color: #6a1b9a;
     text-decoration: none;
-    font-size: 13px;
+    font-size: 14px;
 }
 
-.logout-link:hover {
-    text-decoration: underline;
+/* --- MEDIA QUERIES (ESCRITORIO) --- */
+@media (min-width: 600px) {
+    .form-group {
+        flex-direction: row; /* En PC la etiqueta va a la izquierda */
+        align-items: center;
+    }
+    
+    .form-group label {
+        min-width: 150px;
+    }
+
+    button {
+        width: auto; /* En PC el botón no es gigante */
+    }
+}
+
+@media (max-width: 500px) {
+    .form-row-double {
+        flex-direction: column; /* En celulares muy pequeños, separa monto de proveedor */
+    }
 }

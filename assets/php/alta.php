@@ -3,6 +3,18 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include("conexion.php");
 
+// Cargamos la librería SweetAlert2 al inicio
+echo "<!DOCTYPE html>
+<html lang='es'>
+<head>
+    <meta charset='UTF-8'>
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f2f4f7; }
+    </style>
+</head>
+<body>";
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     $nombre = trim($_POST['nombre']);
@@ -10,31 +22,70 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $password = $_POST['password'];
     $rol = $_POST['rol'];
 
-    //ecriptaccion de contraseña asignada
-    $password_hash = Password_hash($password, PASSWORD_BCRYPT);
+    // Encriptación de contraseña
+    $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
-
-    //INSERTAR USUARIO
+    // INSERTAR USUARIO
     $sql = "INSERT INTO usuarios (nombre, correo, password, rol) VALUES (?, ?, ?, ?)";
     $stmt = $conexion->prepare($sql);
 
-    $stmt->bind_param("ssss" ,$nombre ,$correo ,$password_hash ,$rol);
+    if (!$stmt) {
+        die("Error en la preparación: " . $conexion->error);
+    }
 
+    $stmt->bind_param("ssss", $nombre, $correo, $password_hash, $rol);
 
-    //verificacion
+    // Verificación y ejecución
     if($stmt->execute()){
-        echo "<br> ✅ Usuario registrado con exito";
+        // ÉXITO: Usuario registrado
+        echo "<script>
+            setTimeout(function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Registro Exitoso!',
+                    text: 'El usuario $nombre ha sido creado correctamente.',
+                    confirmButtonColor: '#1c5aa6'
+                }).then(() => {
+                    window.location.href = '../vistas/admin.php'; // Cambia esto a tu página de lista de usuarios
+                });
+            }, 100);
+        </script>";
     } else {
-        if($conexion->errno == 1062 ){
-            echo "<br>❌ Error: El correo ya está registrado.";
+        if($conexion->errno == 1062){
+            // ERROR: Correo duplicado
+            echo "<script>
+                setTimeout(function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Correo ya registrado',
+                        text: 'El correo $correo ya existe en el sistema.',
+                        confirmButtonColor: '#e74c3c'
+                    }).then(() => {
+                        window.history.back();
+                    });
+                }, 100);
+            </script>";
         } else {
-            echo "<br>❌ Error al registrar: " . $stmt->error;
+            // OTROS ERRORES
+            $error_msg = addslashes($stmt->error);
+            echo "<script>
+                setTimeout(function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error al registrar',
+                        text: '$error_msg',
+                        confirmButtonColor: '#e74c3c'
+                    }).then(() => {
+                        window.history.back();
+                    });
+                }, 100);
+            </script>";
         }
     }
 
-
-$conexion->close();
-
+    $stmt->close();
+    $conexion->close();
 }
 
+echo "</body></html>";
 ?>

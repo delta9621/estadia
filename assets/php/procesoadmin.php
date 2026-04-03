@@ -46,7 +46,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     text: 'Los datos se registraron correctamente.',
                     confirmButtonColor: '#1c5aa6'
                 }).then((result) => {
-                    window.location.href='../vistas/solicitudes.php'; 
+                    window.location.href='../vistas/adminsoli.php'; 
                 });
             </script>";
         } else {

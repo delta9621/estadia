@@ -1,55 +1,75 @@
 <?php
-session_start(); 
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+session_start();
 include("conexion.php");
+
+// 1. Cargamos la librería al inicio
+echo "<!DOCTYPE html>
+<html lang='es'>
+<head>
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    <style>
+        body { font-family: Arial; background-color: #e6e6e6; }
+    </style>
+</head>
+<body>";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $correo = $_POST['correo'];
     $pass = $_POST['password'];
 
-    //  Consulta 
     $sql = "SELECT id, nombre, password, rol FROM usuarios WHERE correo = ?";
-    
     $stmt = $conexion->prepare($sql);
-
-    // Verificamos si la preparación falló
-    if (!$stmt) {
-        die("Error en la base de datos: " . $conexion->error);
-    }
-
     $stmt->bind_param("s", $correo);
     $stmt->execute();
     $resultado = $stmt->get_result();
 
     if($usuario = $resultado->fetch_assoc()){
-        //  Comparacion de contraseña
         if(password_verify($pass, $usuario['password'])){
-
-            // Guardamos datos en la sesión
+            
             $_SESSION['user_id'] = $usuario['id'];
             $_SESSION['nombre'] = $usuario['nombre']; 
             $_SESSION['rol'] = $usuario['rol'];
 
-            // Redireccion dependiendo del rol
+            $ruta = "";
             switch($usuario['rol']){
-                case 'administrador':
-                    header("Location: ../vistas/admin.php");
-                    break;
-                case 'contador':
-                    header("Location: ../vistas/contador.php");
-                    break;
-                case 'usuario':
-                    header("Location: ../vistas/solicitudes.php");
-                    exit();
-                    break;
-                default:
-                    header("Location: logout.html?error=rol_no_valido");
+                case 'administrador': $ruta = "../vistas/admin.php"; break;
+                case 'contador':      $ruta = "../vistas/contador.php"; break;
+                case 'usuario':       $ruta = "../vistas/solicitudes.php"; break;
+                default:              $ruta = "logout.html?error=rol_no_valido"; break;
             }
+
+            // ÉXITO: Usamos JS para redirigir, NO header de PHP
+            echo "<script>
+                setTimeout(function() {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Bienvenido!',
+                        text: 'Ingresando al sistema...',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(() => {
+                        window.location.href = '$ruta';
+                    });
+                }, 100);
+            </script>";
             exit(); 
         }
     }
-    echo "<br>Correo o contraseña incorrectos.";
+
+    // ERROR: Credenciales incorrectas
+    echo "<script>
+        setTimeout(function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Acceso Denegado',
+                text: 'Correo o contraseña incorrectos',
+                confirmButtonColor: '#1e3c72'
+            }).then(() => {
+                window.location.href = '../../logout.php'; 
+            });
+        }, 100);
+    </script>";
 }
+
+echo "</body></html>";
 ?>
